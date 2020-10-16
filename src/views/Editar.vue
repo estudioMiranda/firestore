@@ -21,11 +21,11 @@ export default {
             id: this.$route.params.id
         }
     },
-    created() {
-        this.getObras(this.id)
-    },
     methods: {
-        ...mapActions(['getObras', 'editObra'])
+        ...mapActions(['getObra', 'editObra'])
+    },
+    created() {
+        this.getObra(this.id)
     },
     computed: {
         ...mapState(['obra'])

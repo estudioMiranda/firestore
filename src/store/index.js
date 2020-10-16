@@ -12,6 +12,9 @@ export default new Vuex.Store({
     
 },
 mutations: {
+    setObra(state, payload) {
+        state.obra = payload
+    },
     setObras(state, payload){
         state.obras = payload
     },
@@ -20,13 +23,23 @@ mutations: {
     }
 },
 actions: {
+    getObra({commit}, id){
+        db.collection('obras').doc(id).get()
+        .then(doc => {
+            console.log(doc.data())
+            console.log(doc.id)
+            let obra = doc.data()
+            obra.id = doc.id
+            commit('setObra', obra)
+        })
+    },
     getObras({commit}){
         const obras = []
         db.collection('obras').get()
         .then(res => {
             res.forEach(doc => {
-                console.log(doc.id)
-                console.log(doc.data())
+                //console.log(doc.id)
+                //console.log(doc.data())
                 let obra = doc.data()
                 obra.id = doc.id
                 obras.push(obra)
